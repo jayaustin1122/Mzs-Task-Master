@@ -21,7 +21,8 @@ class TaskAdapter(var task: MutableList<Task>):RecyclerView.Adapter<TaskAdapter.
         holder.bindin.apply {
             txtShowTitle.text = task[position].title
             txtShowTask.text = task[position].desc
-
+            txtShowDate.text = task[position].date.toString()
+            txtShowTime.text = task[position].time.toString()
             btnDelete.setOnClickListener {
                 onItemDelete?.invoke(task[position],position)
             }

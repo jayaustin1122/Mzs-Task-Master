@@ -11,6 +11,7 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
+import com.example.mzstaskmasterfinal.MainActivity
 import com.example.mzstaskmasterfinal.R
 import com.example.mzstaskmasterfinal.databinding.FragmentAddTaskBinding
 import com.example.mzstaskmasterfinal.db.Task
@@ -29,7 +30,7 @@ class AddTaskFragment : Fragment() {
     private lateinit var timeSetListener: TimePickerDialog.OnTimeSetListener
     private lateinit var myCalendar : Calendar
 
-    var finalDate = 0L
+    var finalDate =0L
     var finalTime =0L
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +43,7 @@ class AddTaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as MainActivity).setToolbarTitle("Add New Task")
         taskDatabase = TaskDatabase.invoke(this@AddTaskFragment.requireContext())
         binding.saveBtn.setOnClickListener {
             val title = binding.titleInpLay.editText?.text.toString()
@@ -49,11 +51,14 @@ class AddTaskFragment : Fragment() {
 
             if (title.isBlank() || desc.isBlank()) {
                 Toast.makeText(this@AddTaskFragment.requireContext(), "Title and description cannot be empty", Toast.LENGTH_SHORT).show()
+            } else if (finalDate ==0L || finalTime == 0L) {
+                Toast.makeText(this@AddTaskFragment.requireContext(), "Please select a date and time", Toast.LENGTH_SHORT).show()
             } else {
-                val task = Task(title, desc)
+                val task = Task(title, desc,finalDate,finalTime)
                 saved(task)
 
                 Toast.makeText(this@AddTaskFragment.requireContext(), "Saved", Toast.LENGTH_SHORT).show()
+                replaceFragment(HomeFragment())
             }
         }
         binding.dateEdt.setOnClickListener {
@@ -69,6 +74,12 @@ class AddTaskFragment : Fragment() {
             taskDatabase.getTasks().addTask(task)
         }
     }
+    private fun replaceFragment(fragment: Fragment){
+        val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_container,fragment)
+        transaction.commit()
+    }
+
 
     private fun setDate() {
         myCalendar = Calendar.getInstance()

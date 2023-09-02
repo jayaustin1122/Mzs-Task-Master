@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.mzstaskmasterfinal.databinding.ActivityMainBinding
 import com.example.mzstaskmasterfinal.ui.AboutFragment
+import com.example.mzstaskmasterfinal.ui.AddTaskFragment
 import com.example.mzstaskmasterfinal.ui.HistoryFragment
 import com.example.mzstaskmasterfinal.ui.HomeFragment
 import com.google.android.material.navigation.NavigationView
@@ -50,6 +51,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         transaction.commit()
         supportActionBar?.title = title
     }
+    fun setToolbarTitle(title: String) {
+        supportActionBar?.title = title
+    }
+    // Override the onBackPressed method to handle back button presses
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> replaceFragment(HomeFragment(), getString(R.string.title_home))
@@ -61,11 +67,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
-        }
-        else{
-            onBackPressedDispatcher.onBackPressed()
+        } else {
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.frame_container)
+
+            // Check if the current fragment is AddTaskFragment
+            if (currentFragment is AddTaskFragment) {
+                // Change the toolbar title to "Home" when going back to HomeFragment
+                setToolbarTitle(getString(R.string.title_home))
+                val homeFragment = HomeFragment()
+
+                // Replace the current fragment with HomeFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_container, homeFragment)
+                    .commit()
+            } else {
+                super.onBackPressed()
+            }
         }
     }
 }

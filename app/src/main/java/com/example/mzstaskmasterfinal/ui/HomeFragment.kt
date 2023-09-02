@@ -5,6 +5,7 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.format.DateFormat
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +16,9 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mzstaskmasterfinal.MainActivity
 import com.example.mzstaskmasterfinal.R
 import com.example.mzstaskmasterfinal.adapter.TaskAdapter
-import com.example.mzstaskmasterfinal.databinding.AddDialogBinding
 import com.example.mzstaskmasterfinal.databinding.FragmentHomeBinding
 import com.example.mzstaskmasterfinal.databinding.UpdateDialogBinding
 import com.example.mzstaskmasterfinal.db.Task
@@ -29,18 +30,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 
 class HomeFragment : Fragment() {
     private lateinit var adapter : TaskAdapter
     private lateinit var taskDatabase: TaskDatabase
     private lateinit var binding : FragmentHomeBinding
-    private lateinit var myCalendar : Calendar
-    private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
-    private lateinit var timeSetListener: TimePickerDialog.OnTimeSetListener
 
-    var finalDate = 0L
-    var finalTime =0L
     override fun onCreateView (
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,6 +62,7 @@ class HomeFragment : Fragment() {
 
     private fun viewAllTasks() {
         var task : MutableList<Task>
+
         GlobalScope.launch(Dispatchers.IO) {
             task = taskDatabase.getTasks().getAllTasks()
 
@@ -95,6 +94,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
 
     private fun updateDialog(id: Int) {
         val dialog = Dialog(this@HomeFragment.requireContext())
