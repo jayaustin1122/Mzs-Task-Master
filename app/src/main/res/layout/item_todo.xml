@@ -1,82 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:layout_height="125dp"
+    android:padding="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="10dp"
     android:elevation="10dp"
     app:cardCornerRadius="20dp">
 
 
     <View
         android:id="@+id/viewColorTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_height="match_parent"
         android:padding="10dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:background="@android:color/white"
-        android:paddingBottom="5dp">
+        android:id="@+id/bg">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:layout_height="match_parent"
             android:clickable="true"
             android:padding="5dp">
 
+
+            <CheckBox
+                android:id="@+id/checkboxIsDone"
+                android:layout_width="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_height="wrap_content"
+                />
 
 
             <TextView
                 android:id="@+id/txtShowTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_alignStart="@id/checkboxIsDone"
+                android:layout_marginStart="53dp"
                 android:layout_marginEnd="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                tools:text="Task Title"
+                android:layout_marginTop="5dp"
                 android:textColor="#303030"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-
+                android:textStyle="bold"
+                tools:text="Task Title" />
 
             <TextView
                 android:id="@+id/txtShowTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/txtShowTitle"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="56dp"
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                tools:text="Task Subtitle"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="Task Subtitle" />
 
             <ImageButton
                 android:id="@+id/btnDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/baseline_delete_24" />
+                android:src="@drawable/baseline_delete_24"
+                app:tint="@color/red" />
 
             <ImageButton
                 android:id="@+id/btnEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@id/btnDelete"
-                android:layout_marginStart="-50dp"
-                android:src="@drawable/baseline_edit_24" />
+                android:layout_marginStart="-32dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/baseline_edit_24"
+                app:tint="@color/green" />
 
             <TextView
                 android:id="@+id/textDate"
@@ -84,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/txtShowTask"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:text="Date"
                 android:textColor="@color/litherGray"
                 android:textSize="12sp"
@@ -106,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/txtShowTask"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:text="Time"
                 android:textColor="@color/litherGray"
                 android:textSize="12sp"

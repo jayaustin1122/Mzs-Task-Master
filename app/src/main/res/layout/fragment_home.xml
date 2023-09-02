@@ -4,8 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.HomeFragment">
-
+    <!-- Include the "no more items" layout as a sibling with visibility set to GONE initially -->
+    <include layout="@layout/item_no_more_items"
+        android:id="@+id/noMoreItemsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/todoRv"
         android:layout_width="match_parent"
@@ -24,6 +30,7 @@
         android:id="@+id/btn"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/colorAccent"
         android:layout_marginBottom="36dp"
         android:src="@drawable/ic_add_white_24dp"
         app:layout_constraintBottom_toBottomOf="parent"

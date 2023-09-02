@@ -19,7 +19,7 @@
             app:title="Update Task"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
+            android:background="@color/green"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -84,15 +84,6 @@
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:text="Set reminder date and time"
-        android:textColor="@color/colorAccent"
-        android:textSize="16sp" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,23 +91,7 @@
         app:hintTextColor="@color/colorAccent"
         app:boxStrokeColor="@color/colorAccent"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Set Date"
-            android:clickable="true"
-            android:id="@+id/dateEdt"
-            android:cursorVisible="false"
-            android:drawablePadding="8dp"
-            android:drawableEnd="@drawable/ic_date_range_black_24dp"
-            android:drawableTint="@color/colorAccent"
-            android:focusable="false"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_marginBottom="16dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -152,8 +127,8 @@
         android:layout_gravity="end"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:text="Save Task"
-        app:backgroundTint="@color/colorAccent"
+        android:text="Update Task"
+        app:backgroundTint="@color/green"
         app:cornerRadius="25dp" />
 
 

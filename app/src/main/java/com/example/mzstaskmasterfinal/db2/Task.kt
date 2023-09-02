@@ -8,7 +8,8 @@ data class Task(
     var title: String? = null,
     var desc: String? = null,
     var date: Long = 0L,
-    var time: Long = 0L
+    var time: Long = 0L,
+    var isDone: Boolean = false // New property to track task completion
 ){
 
     @PrimaryKey(autoGenerate = true)
