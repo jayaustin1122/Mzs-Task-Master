@@ -3,7 +3,7 @@ package com.example.mzstaskmasterfinal.db
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-
+//Queries in Database
 @Dao
 interface TaskDao {
     @Insert

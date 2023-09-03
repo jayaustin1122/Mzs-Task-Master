@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ui.HomeFragment">
     <!-- Include the "no more items" layout as a sibling with visibility set to GONE initially -->
     <include layout="@layout/item_no_more_items"

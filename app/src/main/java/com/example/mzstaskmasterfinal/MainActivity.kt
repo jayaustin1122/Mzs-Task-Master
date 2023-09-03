@@ -15,7 +15,7 @@ import com.example.mzstaskmasterfinal.ui.HistoryFragment
 import com.example.mzstaskmasterfinal.ui.HomeFragment
 import com.google.android.material.navigation.NavigationView
 import kotlin.system.exitProcess
-
+//here is the control for navigation drawer
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     //declare

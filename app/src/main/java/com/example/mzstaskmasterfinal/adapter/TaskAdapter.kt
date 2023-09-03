@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
-
+//Adapter - It is used to display the every item in a recycler view
 class TaskAdapter(var task: MutableList<Task>,
                   private val taskDatabase: TaskDatabase,
                  ):RecyclerView.Adapter<TaskAdapter.TaskViewHolder>(){

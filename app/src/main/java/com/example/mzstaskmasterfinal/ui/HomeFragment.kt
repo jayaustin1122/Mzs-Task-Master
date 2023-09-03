@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mzstaskmasterfinal.MainActivity
 import com.example.mzstaskmasterfinal.R
 import com.example.mzstaskmasterfinal.adapter.TaskAdapter
 import com.example.mzstaskmasterfinal.databinding.FragmentHomeBinding
@@ -20,10 +21,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+// Home Screen andito recyclerView
 class HomeFragment : Fragment() {
+    //call the adapters and database
     private lateinit var adapter : TaskAdapter
     private lateinit var taskDatabase: TaskDatabase
+
+    //binding is like grouping together UI and The Code
     private lateinit var binding : FragmentHomeBinding
 
     override fun onCreateView (
@@ -38,7 +42,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //init
+        (requireActivity() as MainActivity).setToolbarTitle("Home")
         taskDatabase = TaskDatabase.invoke(this@HomeFragment.requireContext())
+
+        //view All tasks this function will show all the items in a recycler view coming from adapter
         viewAllTasks()
 
         binding.btn.setOnClickListener{
@@ -89,7 +96,7 @@ class HomeFragment : Fragment() {
     }
 
 
-
+// update dialog is to update the tasks
     private fun updateDialog(id: Int) {
         val dialog = Dialog(this@HomeFragment.requireContext())
         val binding: UpdateDialogBinding = UpdateDialogBinding.inflate(layoutInflater)
@@ -127,6 +134,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
 
     private fun deleteTask(item:Task){
         GlobalScope.launch (Dispatchers.IO){

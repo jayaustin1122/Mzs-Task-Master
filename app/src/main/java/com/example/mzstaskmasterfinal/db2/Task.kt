@@ -2,7 +2,7 @@ package com.example.mzstaskmasterfinal.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
+//Database Model of Task
 @Entity
 data class Task(
     var title: String? = null,
