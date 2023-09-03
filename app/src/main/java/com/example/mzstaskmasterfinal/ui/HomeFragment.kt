@@ -1,18 +1,11 @@
 package com.example.mzstaskmasterfinal.ui
 
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.app.Dialog
-import android.app.TimePickerDialog
 import android.os.Bundle
-import android.text.format.DateFormat
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
-import android.widget.LinearLayout
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,20 +16,18 @@ import com.example.mzstaskmasterfinal.databinding.FragmentHomeBinding
 import com.example.mzstaskmasterfinal.databinding.UpdateDialogBinding
 import com.example.mzstaskmasterfinal.db.Task
 import com.example.mzstaskmasterfinal.db.TaskDatabase
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
-
+// Home Screen andito recyclerView
 class HomeFragment : Fragment() {
+    //call the adapters and database
     private lateinit var adapter : TaskAdapter
     private lateinit var taskDatabase: TaskDatabase
+
+    //binding is like grouping together UI and The Code
     private lateinit var binding : FragmentHomeBinding
 
     override fun onCreateView (
@@ -51,7 +42,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //init
+        (requireActivity() as MainActivity).setToolbarTitle("Home")
         taskDatabase = TaskDatabase.invoke(this@HomeFragment.requireContext())
+
+        //view All tasks this function will show all the items in a recycler view coming from adapter
         viewAllTasks()
 
         binding.btn.setOnClickListener{
@@ -67,9 +61,11 @@ class HomeFragment : Fragment() {
             task = taskDatabase.getTasks().getAllTasks()
 
             withContext(Dispatchers.Main){
-                adapter = TaskAdapter(task)
+                adapter = TaskAdapter(task,taskDatabase)
                 binding.todoRv.adapter = adapter
                 binding.todoRv.layoutManager = LinearLayoutManager(this@HomeFragment.requireContext())
+                // Check if there are no items in the adapter and set the flag accordingly
+                adapter.showNoItemsLayout = task.isEmpty()
 
                 adapter.onItemDelete = { item: Task, position: Int ->
                     try {
@@ -77,6 +73,9 @@ class HomeFragment : Fragment() {
                         adapter.task.removeAt(position)
                         adapter.notifyDataSetChanged()
                         Toast.makeText(this@HomeFragment.requireContext(), "Task deleted", Toast.LENGTH_SHORT).show()
+
+                        // Check if there are no items in the adapter after deletion
+                        adapter.showNoItemsLayout = adapter.task.isEmpty()
                     } catch (e: Exception) {
                         Toast.makeText(this@HomeFragment.requireContext(), "Error deleting task: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
@@ -91,11 +90,13 @@ class HomeFragment : Fragment() {
                         Toast.makeText(this@HomeFragment.requireContext(), "Error updating task: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
+
             }
         }
     }
 
 
+// update dialog is to update the tasks
     private fun updateDialog(id: Int) {
         val dialog = Dialog(this@HomeFragment.requireContext())
         val binding: UpdateDialogBinding = UpdateDialogBinding.inflate(layoutInflater)
@@ -114,10 +115,11 @@ class HomeFragment : Fragment() {
             val updatedTitle = binding.editTitleInpLay.editText?.text.toString()
             val updatedDesc = binding.editTaskInpLay.editText?.text.toString()
 
+
             // Update the task in the database
             GlobalScope.launch(Dispatchers.IO) {
                 try {
-                    taskDatabase.getTasks().updateTask(updatedTitle, id)
+                    taskDatabase.getTasks().updateTask(updatedTitle,updatedDesc,false, id)
                     withContext(Dispatchers.Main) {
                         Toast.makeText(this@HomeFragment.requireContext(), "Successfully updated", Toast.LENGTH_SHORT).show()
                         viewAllTasks()
@@ -132,6 +134,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
 
     private fun deleteTask(item:Task){
         GlobalScope.launch (Dispatchers.IO){

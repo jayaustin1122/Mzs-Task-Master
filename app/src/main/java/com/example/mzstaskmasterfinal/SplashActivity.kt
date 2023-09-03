@@ -21,6 +21,8 @@ class SplashActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             Toast.makeText(this@SplashActivity,"Welcome",Toast.LENGTH_SHORT).show()
             delay(3000L)
+
+            //Intents
             startActivity(Intent(this@SplashActivity,MainActivity::class.java))
             finish()
         }

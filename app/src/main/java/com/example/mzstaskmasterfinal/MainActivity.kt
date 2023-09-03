@@ -1,22 +1,21 @@
 package com.example.mzstaskmasterfinal
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MenuItem
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.mzstaskmasterfinal.databinding.ActivityMainBinding
-import com.example.mzstaskmasterfinal.ui.AboutFragment
 import com.example.mzstaskmasterfinal.ui.AddTaskFragment
 import com.example.mzstaskmasterfinal.ui.HistoryFragment
 import com.example.mzstaskmasterfinal.ui.HomeFragment
 import com.google.android.material.navigation.NavigationView
-
+import kotlin.system.exitProcess
+//here is the control for navigation drawer
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     //declare
@@ -59,11 +58,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> replaceFragment(HomeFragment(), getString(R.string.title_home))
-            R.id.nav_history -> replaceFragment(HistoryFragment(), getString(R.string.title_history))
-            R.id.nav_about -> replaceFragment(AboutFragment(), getString(R.string.title_about))
+            R.id.nav_history -> replaceFragment(HistoryFragment(), getString(R.string.title_about))
+            R.id.nav_about ->showExitConfirmationDialog()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Exit Confirmation")
+            .setMessage("Are you sure you want to exit the app?")
+            .setPositiveButton("Yes") { _, _ ->
+                // User confirmed to exit, so close the app
+                finish() // If you're in an activity, finish the activity
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                // User canceled the exit, so dismiss the dialog
+                dialog.dismiss()
+            }
+            .show()
     }
 
     override fun onBackPressed() {

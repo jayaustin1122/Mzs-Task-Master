@@ -1,0 +1,23 @@
+<!-- item_no_more_items.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <!-- Add an ImageView for your image here -->
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:src="@drawable/nomore"
+        android:contentDescription="No more items" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No More Tasks"
+        android:textSize="50sp"
+        android:textColor="@color/black"
+        />
+
+</LinearLayout>
